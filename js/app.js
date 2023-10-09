@@ -24,11 +24,17 @@ const ENEMIES = [
     'https://upload.wikimedia.org/wikipedia/en/b/bd/Joffrey_Baratheon-Jack_Gleeson.jpg',
     'https://www.cheatsheet.com/wp-content/uploads/2020/04/Gus-Fring.jpeg?strip=all&quality=89',
     'https://i.insider.com/62c79a5d8045920019ae23c4?width=700',
+    'https://pyxis.nymag.com/v1/imgs/0db/66f/467b1483e421ea9a11d0847cfa51a77710-hottest-orc-2.rsquare.w350.jpg',
+    'https://www.boredpanda.com/blog/wp-content/uploads/2023/04/clipimage-644bb65da66e2__700.jpg',
+    'https://www.boredpanda.com/blog/wp-content/uploads/2023/04/clipimage-644bb85f72a09__700.jpg',
+    'https://www.boredpanda.com/blog/wp-content/uploads/2023/04/clipimage-644bb8fa11f4e__700.jpg',
+    'https://www.boredpanda.com/blog/wp-content/uploads/2023/04/clipimage-644bb951643cf__700.jpg',
     'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1dbc1935-6542-4ee3-822f-135cff4ba62c/df98de6-3bd0eb87-f58b-4726-ad76-ce20a4c8f570.png/v1/fill/w_485,h_605/gollum__1____transparent__by_speedcam_df98de6-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NjA1IiwicGF0aCI6IlwvZlwvMWRiYzE5MzUtNjU0Mi00ZWUzLTgyMmYtMTM1Y2ZmNGJhNjJjXC9kZjk4ZGU2LTNiZDBlYjg3LWY1OGItNDcyNi1hZDc2LWNlMjBhNGM4ZjU3MC5wbmciLCJ3aWR0aCI6Ijw9NDg1In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.Q25iqft9m-DIaaiS-3gSvVU69efaZnVxfohOxSt5wVM' ]
 
 const fighterEls = document.querySelectorAll('ul.fighters > div')
 const fighterImageEls = document.querySelectorAll('ul > div > img')
 const fighterPowerEls = document.querySelectorAll('ul > div > p')
+const championText = document.getElementById('champion-text')
 
 let fighterArenaImgEl = document.getElementById('your-fighter')
 const enemyArenaImgEl = document.getElementById('enemy-fighter')
@@ -44,6 +50,10 @@ const enemyScoreEl = document.getElementById('enemy-score')
 const playAgainEl = document.querySelector('button')
 
 let currentFighterPower;
+
+let clicks;
+
+
 
 playerScoreEl.textContent = playerScore
 enemyScoreEl.textContent = enemyScore
@@ -70,8 +80,10 @@ function handleEvent (evt) {
     currentFighterPower = fighterArenaPowerEl.innerText
     winnerEl.textContent = findWinner()
     addScore()
-    enemyArenaImgEl.src = ENEMIES[Math.floor(Math.random() * ENEMIES.length)]
-
+    enemyArenaImgEl.src = ENEMIES[Math.floor(Math.random() * ENEMIES.length)];
+    clicks = clicks + 1
+    getChampion()
+    
 
 }
 
@@ -100,7 +112,15 @@ function addScore() {
 }    
 
 
-
+function getChampion () {
+    if (playerScore > enemyScore && clicks === 6) {
+        return championText.innerText='You Won the Battle!'
+    } else if (playerScore < enemyScore && clicks === 6) {
+        return championText.innerText = 'The Enemy Won the Battle!'
+    } else if (clicks === 6){
+        return championText.innerText = 'No One Won the Battle'
+    }
+}
 
     init()
 
@@ -115,6 +135,9 @@ function init () {
         fighterPowerEls[idx].className = fighterPowers
         fighterArenaPowerEl.innerText = '?'
         enemyArenaPowerEl.innerText = '?'
+        winnerEl.innerText = ''
+        clicks = 0
+        championText.innerText = "Choose Your Fighter"
 
 
         let fighterDiv = document.querySelectorAll('ul > div')
@@ -139,6 +162,7 @@ function init () {
 
 
 function render() {
+    
 
 
 
