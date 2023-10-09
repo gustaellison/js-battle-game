@@ -11,6 +11,8 @@ const FIGHTERSARR = [
     {points: Math.floor(Math.random() * 10 + 1), imgUrl: 'https://i.ytimg.com/vi/73lrlQ-8ORI/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBxzgQXLgvq2IJlvaGBM-2og-OrcQ'}, 
     {points: Math.floor(Math.random() * 10 + 1), imgUrl: 'https://www.comingsoon.net/wp-content/uploads/sites/3/2023/07/The-Last-of-Us-TV-Show-Joel-Death.jpg'},]
 
+
+    
 let playerScore;
 let enemyScore;
 let fighterPowers;
@@ -20,7 +22,7 @@ let enemyPower;
 const ENEMIES = [
     'https://static.displate.com/857x1200/displate/2019-04-25/83634e3f1cc5fbd9458869d3e9dc8a6b_1778fe4c74eb32f8f6d2bf47e613a028.jpg', 
     'https://upload.wikimedia.org/wikipedia/en/b/bd/Joffrey_Baratheon-Jack_Gleeson.jpg',
-    'https://static.wikia.nocookie.net/villains/images/7/75/Pollos2.png/revision/latest?cb=20230321121053',
+    'https://www.cheatsheet.com/wp-content/uploads/2020/04/Gus-Fring.jpeg?strip=all&quality=89',
     'https://i.insider.com/62c79a5d8045920019ae23c4?width=700',
     'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1dbc1935-6542-4ee3-822f-135cff4ba62c/df98de6-3bd0eb87-f58b-4726-ad76-ce20a4c8f570.png/v1/fill/w_485,h_605/gollum__1____transparent__by_speedcam_df98de6-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NjA1IiwicGF0aCI6IlwvZlwvMWRiYzE5MzUtNjU0Mi00ZWUzLTgyMmYtMTM1Y2ZmNGJhNjJjXC9kZjk4ZGU2LTNiZDBlYjg3LWY1OGItNDcyNi1hZDc2LWNlMjBhNGM4ZjU3MC5wbmciLCJ3aWR0aCI6Ijw9NDg1In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.Q25iqft9m-DIaaiS-3gSvVU69efaZnVxfohOxSt5wVM' ]
 
@@ -30,14 +32,18 @@ const fighterPowerEls = document.querySelectorAll('ul > div > p')
 
 let fighterArenaImgEl = document.getElementById('your-fighter')
 const enemyArenaImgEl = document.getElementById('enemy-fighter')
-const fighterArenaPowerEl = document.getElementById('your-fighter')
-const enemyArenaPowerEl = document.getElementById('enemy-fighter')
+const fighterArenaPowerEl = document.getElementById('your-power')
+let enemyArenaPowerEl = document.getElementById('enemy-power')
+
+const winnerEl = document.getElementById('winner-message')
+
 
 const playerScoreEl = document.getElementById('player-score')
 const enemyScoreEl = document.getElementById('enemy-score')
 
 const playAgainEl = document.querySelector('button')
 
+let currentFighterPower;
 
 playerScoreEl.textContent = playerScore
 enemyScoreEl.textContent = enemyScore
@@ -49,15 +55,50 @@ fighterEls.forEach(item => {
     item.addEventListener('click', handleEvent)
 })
 
-console.log(fighterArenaImgEl.src)
+
+
 
 
 function handleEvent (evt) {
+    let clickedItem = evt.target
     fighterArenaImgEl.src = evt.target.src
+    enemyPower = Math.floor(Math.random() * 10 + 1)
+    enemyArenaPowerEl.innerText = enemyPower
+    fighterArenaPowerEl.innerText = evt.target.className
+    clickedItem.parentNode.style.display = "none"
     console.log(evt.target)
-    fighterArenaPowerEl.innerText = fighterPowerEls.innerText
+    currentFighterPower = fighterArenaPowerEl.innerText
+    winnerEl.textContent = findWinner()
+    addScore()
+    enemyArenaImgEl.src = ENEMIES[Math.floor(Math.random() * ENEMIES.length)]
+
 
 }
+
+function findWinner() {
+    if (currentFighterPower < enemyPower){
+        return 'the enemy beat you'
+    } else if (currentFighterPower > enemyPower) {
+        return 'you beat the enemy'
+    } else {
+        return'it was a tie'
+    }
+}
+
+
+function addScore() {
+    if (currentFighterPower > enemyPower){
+        playerScore = playerScore+1
+        playerScoreEl.innerHTML = playerScore
+    } else if (currentFighterPower < enemyPower) {
+        enemyScore = enemyScore+1
+        enemyScoreEl.innerHTML = enemyScore
+
+    } else {
+        return 
+    }
+}    
+
 
 
 
@@ -66,21 +107,26 @@ function handleEvent (evt) {
 
 
 function init () {
+    fighterEls.forEach((obj, idx) => {
+        fighterPowers = Math.floor(Math.random() * 10 + 1)
+        fighterPowerEls[idx].innerText = fighterPowers
+        fighterImageEls[idx].src = FIGHTERSARR[Math .floor(Math.random() * FIGHTERSARR.length)].imgUrl
+        fighterImageEls[idx].className = fighterPowers
+        fighterPowerEls[idx].className = fighterPowers
+        fighterArenaPowerEl.innerText = '?'
+        enemyArenaPowerEl.innerText = '?'
 
-    fighterImageEls.forEach((obj, idx) =>{
-        idx = Math.floor(Math.random() * FIGHTERSARR.length)
-        obj.src = FIGHTERSARR[idx].imgUrl
+
+        let fighterDiv = document.querySelectorAll('ul > div')
+        fighterDiv[idx].style.display = 'inline-flex'
+
+        
+        enemyArenaImgEl.src= 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png'
+        fighterArenaImgEl.src= 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png'
+
+        
 
     })
-
-    fighterPowerEls.forEach((obj, idx) =>{
-        obj.textContent = Math.floor(Math.random() * 10 + 1)    
-        fighterPowers = obj.textContent
-
-    })
-
-
-    enemyPower = Math.floor(Math.random() * 10 + 1)
         
     playerScore = 0;
     enemyScore = 0;
