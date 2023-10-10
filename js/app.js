@@ -41,6 +41,8 @@ const enemyArenaImgEl = document.getElementById('enemy-fighter')
 const fighterArenaPowerEl = document.getElementById('your-power')
 let enemyArenaPowerEl = document.getElementById('enemy-power')
 
+const powerupEls = document.querySelectorAll('div.powerups > p')
+
 const winnerEl = document.getElementById('winner-message')
 
 
@@ -65,8 +67,15 @@ fighterEls.forEach(item => {
     item.addEventListener('click', handleEvent)
 })
 
+powerupEls.forEach(item => {
+    item.addEventListener('click', handleEvent)
+})
 
-
+function powerUpAdded (evt) {
+    let clickedPower = evt.target.innerText
+    fighterArenaPowerEl.textContent = clickedPower
+    console.log(clickedPower)
+}
 
 
 function handleEvent (evt) {
@@ -83,7 +92,6 @@ function handleEvent (evt) {
     enemyArenaImgEl.src = ENEMIES[Math.floor(Math.random() * ENEMIES.length)];
     clicks = clicks + 1
     getChampion()
-    
 
 }
 
@@ -128,9 +136,9 @@ function getChampion () {
 
 function init () {
     fighterEls.forEach((obj, idx) => {
-        fighterPowers = Math.floor(Math.random() * 10 + 1)
+        fighterPowers = FIGHTERSARR[idx].points
+        fighterImageEls[idx].src = FIGHTERSARR[idx].imgUrl
         fighterPowerEls[idx].innerText = fighterPowers
-        fighterImageEls[idx].src = FIGHTERSARR[Math .floor(Math.random() * FIGHTERSARR.length)].imgUrl
         fighterImageEls[idx].className = fighterPowers
         fighterPowerEls[idx].className = fighterPowers
         fighterArenaPowerEl.innerText = '?'
@@ -151,11 +159,15 @@ function init () {
 
     })
         
+    powerupEls.forEach((powerup, idx) => {
+        powerupEls[idx].innerHTML = Math.floor(Math.random() * 10 + 1)
+    })
+
     playerScore = 0;
     enemyScore = 0;
     playerScoreEl.innerText = playerScore
     enemyScoreEl.innerText = enemyScore
-
+    
     render()
 }
 

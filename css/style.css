@@ -50,3 +50,7 @@ main > ul > div > img {
     height: 150px;
     width: ;
 }
+
+.powerups {
+    border: 2px solid black
+}
