@@ -81,6 +81,7 @@ function chooseCards(evt) {
     enemyArenaImgEl.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png'
     enemyArenaPowerEl.textContent = '?'
     winnerEl.textContent = ''
+    console.log(clicks)
 
 
 }
@@ -90,9 +91,10 @@ function clickFight(evt) {
     enemyPower = Math.floor(Math.random() * 10 + 1)
     enemyArenaPowerEl.innerText = enemyPower
     winnerEl.textContent = findWinner()
-
-    getChampion()
     addScore()
+    getChampion()
+    console.log(enemyScore, 'enemy score')
+    console.log(playerScore, "player score")
 
 }
 
@@ -159,7 +161,7 @@ function init() {
         fighterArenaPowerEl.innerText = '?'
         enemyArenaPowerEl.innerText = '?'
         winnerEl.innerText = ''
-        clicks = 0
+
         championText.innerText = "Choose Your Fighter"
 
 
@@ -173,7 +175,7 @@ function init() {
         console.log(fighterPowers)
 
     })
-
+        clicks = 0
     powerupEls.forEach((powerup, idx) => {
         powerupEls[idx].innerHTML = Math.floor(Math.random() * 10 + 1)
     })
