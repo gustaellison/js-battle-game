@@ -155,7 +155,7 @@ function init() {
     fighterEls.forEach((obj, idx) => {
         fighterPowers = FIGHTERSARR[idx].points
         fighterPowerEls[idx].innerText = fighterPowers
-        fighterImageEls[idx].src = FIGHTERSARR[idx].imgUrl
+        fighterImageEls[idx].src = FIGHTERSARR[Math.floor(Math.random() * FIGHTERSARR.length)].imgUrl
         fighterImageEls[idx].className = fighterPowers
         fighterPowerEls[idx].className = fighterPowers
         fighterArenaPowerEl.innerText = '?'
