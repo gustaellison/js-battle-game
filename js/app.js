@@ -30,9 +30,6 @@ let fighterArenaImgEl = document.getElementById('your-fighter')
 const enemyArenaImgEl = document.getElementById('enemy-fighter')
 const fighterArenaPowerEl = document.getElementById('your-power')
 let enemyArenaPowerEl = document.getElementById('enemy-power')
-const fighterPowerUpEl = document.getElementById('your-powerup')
-const totalPowerEl = document.getElementById('total-power')
-
 
 const powerupEls = document.querySelectorAll('div.powerups > p')
 
@@ -45,12 +42,9 @@ const enemyScoreEl = document.getElementById('enemy-score')
 const playAgainEl = document.querySelector('.play-again > button')
 const fightEl = document.querySelector('.fight-button > button')
 
-let chosenCardValue;
-let clickedPower;
 let currentFighterPower;
 
 let clicks;
-
 
 
 
@@ -71,48 +65,35 @@ powerupEls.forEach(item => {
     item.addEventListener('click', powerUpAdded)
 })
 
+function powerUpAdded(evt) {
+    let clickedPower = evt.target.innerText
+    fighterArenaPowerEl.textContent = clickedPower
+    console.log(clickedPower)
+}
 
-init()
 
 function chooseCards(evt) {
     let clickedItem = evt.target
     fighterArenaImgEl.src = evt.target.src
     fighterArenaPowerEl.innerText = evt.target.className
     clickedItem.parentNode.style.display = "none"
+    console.log(evt.target)
+    currentFighterPower = fighterArenaPowerEl.innerText
     clicks = clicks + 1
-    chosenCardValue = clickedItem.className
 
-    currentFighterPower = chosenCardValue
-    console.log(currentFighterPower)
-
-    totalPowerEl.textContent = currentFighterPower
 
 }
-
-function powerUpAdded(evt) {
-    let clickedPower = evt.target
-    console.log(clickedPower)
-    
-    fighterPowerUpEl.textContent = clickedPower.innerHTML
-    currentFighterPower = Number(currentFighterPower) + Number(clickedPower.textContent)
-    totalPowerEl.textContent = (currentFighterPower)
-    clickedPower.style.display = "none"
-
-}
-
 
 function clickFight(evt) {
     enemyArenaImgEl.src = ENEMIES[Math.floor(Math.random() * ENEMIES.length)];
-    enemyPower = Math.floor(Math.random() * 15 + 1)
+    enemyPower = Math.floor(Math.random() * 10 + 1)
     enemyArenaPowerEl.innerText = enemyPower
     winnerEl.textContent = findWinner()
-
 
     getChampion()
     addScore()
 
 }
-
 
 function findWinner() {
     if (currentFighterPower < enemyPower) {
@@ -149,16 +130,11 @@ function getChampion() {
     }
 }
 
+init()
 
 
 
 function init() {
-
-    powerupEls.forEach(item => {
-        item.style.display = "display"
-    })
-      console.log(powerupEls)
-
     FIGHTERSARR = [
         { points: Math.floor(Math.random() * 10 + 1), imgUrl: 'https://images.thedirect.com/media/photos/witchn.jpg' },
         { points: Math.floor(Math.random() * 10 + 1), imgUrl: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1500w,f_auto,q_auto:best/streams/2013/June/130606/6C7757975-130606-ent-cersei-hmed.jpg' },
@@ -173,9 +149,6 @@ function init() {
         { points: Math.floor(Math.random() * 10 + 1), imgUrl: 'https://www.comingsoon.net/wp-content/uploads/sites/3/2023/07/The-Last-of-Us-TV-Show-Joel-Death.jpg' },
     ]
 
-    powerupEls.forEach((powerup, idx) => {
-        powerupEls[idx].textContent = Math.floor(Math.random() * 10 + 1)
-    })
 
     fighterEls.forEach((obj, idx) => {
         fighterPowers = FIGHTERSARR[idx].points
@@ -197,19 +170,18 @@ function init() {
         enemyArenaImgEl.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png'
         fighterArenaImgEl.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/800px-Question_mark_%28black%29.svg.png'
 
-        // console.log(fighterPowers)
+        console.log(fighterPowers)
 
     })
-    
-        playerScore = 0;
-        enemyScore = 0;
-        currentFighterPower = 0
-        playerScoreEl.innerText = playerScore
-        enemyScoreEl.innerText = enemyScore
-        chosenCardValue = 0
-        clickedPower = 0
 
+    powerupEls.forEach((powerup, idx) => {
+        powerupEls[idx].innerHTML = Math.floor(Math.random() * 10 + 1)
+    })
 
+    playerScore = 0;
+    enemyScore = 0;
+    playerScoreEl.innerText = playerScore
+    enemyScoreEl.innerText = enemyScore
 
     render()
 }
@@ -222,4 +194,5 @@ function render() {
 
 
 }
+
 
