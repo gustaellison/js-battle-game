@@ -5,7 +5,7 @@ Javascript
 HTML/CSS
 
 
-Game Objective:
+#Game Objective:
 1) Select your character. Each is worth a value between 1 and 10.
 
 2) Click "Fight" for the Enemy to enter the fight with their own Character that has a value between 1 and 10.
