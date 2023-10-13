@@ -1,4 +1,4 @@
-# Augusta's TV/MOvie Character War
+# Augusta's TV/Movie Character War
 
 Similar to war but instead of cards, some of Augusta's favorite tv show/ movie characters.
 Please visit [here](https://gustaellison.github.io/js-battle-game/) 
