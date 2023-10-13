@@ -17,9 +17,10 @@ HTML/CSS
 
 3) The player with the higher number wins the round.
 
-4)There are 6 round, one for each of your characters. By the end of the 5th round, the player with the most round wins, wins the game.
+4) There are 6 rounds, one for each of your characters. By the end of the 5th round, the player with the most round wins, wins the game.
 
-# Next Steps
-Add the capacity for a split function
-Add a tracker for the number of hands won/lost
+# Next Steps / Wants
 
+Create a more dynamic strategic version of the current simple game
+Powerups
+Categories on rounds to create multipliers
