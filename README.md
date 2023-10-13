@@ -3,7 +3,7 @@
 Similar to war but instead of cards, some of Augusta's favorite tv show/ movie characters.
 Please visit [here](https://gustaellison.github.io/js-battle-game/) 
 
-![game screenshot](https://imgur.com/nWOCLHYgit )
+![game screenshot](https://imgur.com/nWOCLHY)
 
 # Technologies Used
 Javascript
